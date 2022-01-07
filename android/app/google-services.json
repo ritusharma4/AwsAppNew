@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "699791358887",
+    "project_id": "testapp-5ff4a",
+    "storage_bucket": "testapp-5ff4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699791358887:android:59ce1ed604620846951482",
+        "android_client_info": {
+          "package_name": "com.fibanat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699791358887-uamep13ofaa5jejp7r7ev78pauhlirg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFmmDmjQx64wQ8fM2b4OLLvGjfQxFnt_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699791358887-uamep13ofaa5jejp7r7ev78pauhlirg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
