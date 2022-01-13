@@ -27,10 +27,11 @@ const App: () => Node = () => {
           headerShown: false,
         }}
       >
+                <Stack.Screen name="Login" component={LoginScreen} />
+
         <Stack.Screen name="FeedbackScreen" component={FeedbackScreen} />
         <Stack.Screen name="OutofHourScreen" component={OutofHourScreen} />
 
-        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignUpScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
 

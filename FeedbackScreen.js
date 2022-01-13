@@ -35,7 +35,10 @@
      const [email, onChangeEmail] = React.useState('');
      const [password, onChangePassword] = React.useState('');
      const [isSecure, onSetSecureText] = React.useState(true);
- 
+    
+     const onPressBack = (event) => {
+        navigation.navigate('Login');
+    }
      const onPressFeedback = () => {
         navigation.navigate('OutofHourScreen');
         //  if (email.trim().length === 0) {
@@ -81,7 +84,7 @@
              <View style={styles.headerWhite}>
                         <View style={{ width: '15%', }}>
                             <TouchableOpacity 
-                            //onPress={() => Actions.push("Demo")}
+                            onPress={onPressBack}
                              style={{ marginLeft: 10 }} >
                                 <Image source={require("./assets/back.png")} 
                                 style={styles.imageMenuIcon}

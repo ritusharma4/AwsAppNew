@@ -32,37 +32,43 @@ export function LoginScreen({ navigation }) {
     const [password, onChangePassword] = React.useState('');
     const [isSecure, onSetSecureText] = React.useState(true);
 
+
+    const onPressBack = (event) => {
+        navigation.navigate('FeedbackScreen');
+    }
+
     const onPressLogin = () => {
-        if (email.trim().length === 0) {
-            Alert.alert('', 'Please enter a email.');
-        }
-        else if (password.trim().length === 0) {
-            Alert.alert('', 'Please enter a password.');
-        }
-        else if (password.length < 6) {
-            Alert.alert('', 'Password should be 6 character long.');
-        }
-        else {
-            firestore()
-                .collection('User')
-                .doc(email.toLocaleLowerCase())
-                .get()
-                .then(documentSnapshot => {
-                    if (documentSnapshot.exists) {
-                        const userProfile = documentSnapshot.data();
-                        console.log('User data: ', userProfile);
-                        if(userProfile.password === password) {
-                            navigation.navigate('Home');
-                        }
-                        else {
-                            Alert.alert('', 'Email or password doesn`t match, please check.');
-                        }
-                    }
-                    else {
-                        Alert.alert('', 'User doesn`t exixts.');
-                    }
-                });
-        }
+        navigation.navigate('FeedbackScreen');
+        // if (email.trim().length === 0) {
+        //     Alert.alert('', 'Please enter a email.');
+        // }
+        // else if (password.trim().length === 0) {
+        //     Alert.alert('', 'Please enter a password.');
+        // }
+        // else if (password.length < 6) {
+        //     Alert.alert('', 'Password should be 6 character long.');
+        // }
+        // else {
+        //     firestore()
+        //         .collection('User')
+        //         .doc(email.toLocaleLowerCase())
+        //         .get()
+        //         .then(documentSnapshot => {
+        //             if (documentSnapshot.exists) {
+        //                 const userProfile = documentSnapshot.data();
+        //                 console.log('User data: ', userProfile);
+        //                 if(userProfile.password === password) {
+        //                     navigation.navigate('Home');
+        //                 }
+        //                 else {
+        //                     Alert.alert('', 'Email or password doesn`t match, please check.');
+        //                 }
+        //             }
+        //             else {
+        //                 Alert.alert('', 'User doesn`t exixts.');
+        //             }
+        //         });
+        // }
     }
 
     const isDarkMode = useColorScheme() === 'dark';
