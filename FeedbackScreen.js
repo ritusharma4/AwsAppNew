@@ -257,6 +257,7 @@
          fontWeight: 'bold',
  
      },
+     
      textButton2: {
         color: 'white',
         fontSize: 20,

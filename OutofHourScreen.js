@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
- import React from 'react';
+ import React, { useEffect } from 'react';
  import {
      SafeAreaView,
      StatusBar,
@@ -14,180 +14,226 @@
      Text,
      useColorScheme,
      View,
-     TextInput,
+     FlatList,
      TouchableOpacity,
      TouchableWithoutFeedback,
-     Alert,
      Dimensions,
      Image,
+    ScrollView,
+
  } from 'react-native';
- import Icon from 'react-native-vector-icons/dist/Ionicons';
  import firestore from '@react-native-firebase/firestore';
- 
- import {
-     Colors,
- } from 'react-native/Libraries/NewAppScreen';
  const { width, height } = Dimensions.get("window");
+ const Item = ({ title, subtitle }) => (
+     <View style={styles.item}>
+         {/* <Text style={styles.title}>{`Name: ${title}`}</Text> */}
+         <Text style={styles.title}>Glasgow SE Foodbank</Text>
 
-
+         <View style={{flexDirection:'row',marginTop:10,alignItems: 'center'}}>
+             <Image style={{width:25, height:25}}
+             source={require("./assets/phone.png")} 
+             ></Image>
+             <Text style={{marginLeft:10,    fontSize: 16,}}>01 41 423 2418</Text>
+         </View>
+         <Text style={styles.subtitle}>42 Infield St Glasgow G42 TAT</Text>
+     </View>
+ );
  
  export function OutofHourScreen({ navigation }) {
-     const [email, onChangeEmail] = React.useState('');
-     const [password, onChangePassword] = React.useState('');
-     const [isSecure, onSetSecureText] = React.useState(true);
+     const [users, setUsers] = React.useState([]);
+     const itemListing = [
+        {id: '1', name: 'Item!'},
+        {id: '2', name: 'Item@'},
+        {id: '3', name: 'Item#'},
+        {id: '4', name: 'Item$'},
+        {id: '5', name: 'Item%'},
+        {id: '6', name: 'Item^'},
+        {id: '7', name: 'Item&'},
+        {id: '8', name: 'Item*'},
+        {id: '9', name: 'Item('},
+        {id: '10', name: 'Item)'},
+        {id: '11', name: 'Item!!'},
+        {id: '12', name: 'Item@@'},
+        {id: '13', name: 'Item##'},
+        {id: '14', name: 'Item$$'},
+        {id: '15', name: 'Item%%'},
+        {id: '16', name: 'Item^^'},
+        {id: '17', name: 'Item&&'},
+        {id: '18', name: 'Item**'},
+        {id: '19', name: 'Item(('},
+        {id: '20', name: 'Item))'},
+      ];
+      const onPressBack = (event) => {
+        navigation.navigate('Login');
+    }
+     useEffect(() => {
+         const onGetUserList = async () => {
+             firestore()
+                 .collection('User')
+                 .get()
+                 .then(querySnapshot => {
+                     const arrayUserList = [];
+                     querySnapshot.forEach(documentSnapshot => {
+                         console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                         arrayUserList.push(documentSnapshot.data());
+                     });
  
-     const onPressFeedback = () => {
-         this.props.navigation.navigate('OutofHourScreen')
-        //  if (email.trim().length === 0) {
-        //      Alert.alert('', 'Please enter a email.');
-        //  }
-        //  else if (password.trim().length === 0) {
-        //      Alert.alert('', 'Please enter a password.');
-        //  }
-        //  else if (password.length < 6) {
-        //      Alert.alert('', 'Password should be 6 character long.');
-        //  }
-        //  else {
-        //      firestore()
-        //          .collection('User')
-        //          .doc(email.toLocaleLowerCase())
-        //          .get()
-        //          .then(documentSnapshot => {
-        //              if (documentSnapshot.exists) {
-        //                  const userProfile = documentSnapshot.data();
-        //                  console.log('User data: ', userProfile);
-        //                  if(userProfile.password === password) {
-        //                      navigation.navigate('Home');
-        //                  }
-        //                  else {
-        //                      Alert.alert('', 'Email or password doesn`t match, please check.');
-        //                  }
-        //              }
-        //              else {
-        //                  Alert.alert('', 'User doesn`t exixts.');
-        //              }
-        //          });
-        //  }
-     }
+                     setUsers(arrayUserList)
+                 });
+         }
+ 
+         onGetUserList()
+     }, [])
+ 
+     const renderItem = ({ item }) => (
+         <Item 
+         title={item.name} subtitle={item.name} />
+     );
  
      const isDarkMode = useColorScheme() === 'dark';
-     const backgroundStyle = {
-         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-     };
- 
      return (
-         <SafeAreaView style={[backgroundStyle, styles.viewParent]}>
+         <SafeAreaView style={[styles.viewParent]}>
              <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-             <View style={styles.headerWhite}>
-            
+             <ScrollView>
+<View>
 
-                 
+             <View style={styles.headerWhite}>
+                        <View style={{ width: '15%', }}>
+                            <TouchableOpacity 
+                            onPress={onPressBack}
+                             style={{ marginLeft: 10 }} >
+                                <Image source={require("./assets/back.png")} 
+                                style={styles.imageMenuIcon}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ width: '75%', alignItems: 'center' }}>
+
+                            <Text style={styles.settingText}>Out of Hours</Text>
+
+                        </View>
+
+                    </View>
+                    <View style={styles.viewTxt}>
+                     <Text style={styles.txtTitle}>Out of Hours Support</Text>
+                     <Text style={styles.txtTitle2}>Foodbanks</Text>
+
+                     </View>
+             <View>
+                 <FlatList
+                 style={{width:width,backgroundColor:'#ebfdff'}}
+                     data={itemListing}
+                     keyExtractor={item => `${item.name}`}
+                     renderItem={renderItem}
+                     keyExtractor={item => item.id}
+                     renderS
+                 />
              </View>
+
+            
+             </View>
+             </ScrollView>
+             {/* <View style={{width: width,
+             position:'absolute',bottom:0,justifyContent:'center',alignItems: 'center',backgroundColor:'#ebfdff'}}>
+             <Text style={styles.txtTitle3}>Lorem Ipsum dummy text Lorem Ipsum dummy text
+             Lorem Ipsum dummy text Lorem Ipsum dummy text</Text>
+             <TouchableOpacity 
+             //onPress={onPressFeedback}
+              style={styles.button}>
+                     <Text style={styles.textButton}>Return to Login</Text>
+                 </TouchableOpacity>
+
+             </View> */}
+
+
          </SafeAreaView>
-     );
- };
+     )
+ }
  
  const styles = StyleSheet.create({
      viewParent: {
          flex: 1,
-         backgroundColor:'#60adb7'
+         backgroundColor:'#60adb7',
      },
-     viewChild: {
-         margin: 20,
-     },
-     viewMiddle: {
-         justifyContent: 'center',
+     item: {
+         padding: 10,
+         marginVertical: 8,
+         marginHorizontal: 16,
+         borderBottomWidth: 0.5,
+         width:'100%', 
          alignItems: 'center',
+         justifyContent: 'center'
      },
-     viewTxt: {
-         width:'80%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+     title: {
+         fontSize: 16,
+         fontWeight: 'bold',
+     },
+     subtitle: {
+         fontSize: 16,
+         marginTop: 10
+     },
      headerWhite:{
    
-        width: width,height: 70, backgroundColor:'#0e494f',
+        width: width,height: 50, backgroundColor:'#0e494f',
          flexDirection: 'row', 
          alignItems: 'center'
+      },
+      imageMenuIcon:{
+        width: 25, height: 20, 
       },
       settingText:{
         fontSize: 18, color: 'white',fontWeight:'bold'
       },
-      
-    
-     viewMiddle2: {
-         justifyContent: 'center',
-     },
-     txtTitle: {
-         fontSize: 22,
-         marginBottom: 20,
-         color: 'white',
-         textAlign: 'center',
-         alignItems: 'center',
-         letterSpacing:5
+      viewTxt: {
+        width:width,
+       justifyContent: 'center',
+       alignItems: 'center',
+       marginTop:20,
+   },
 
-     },
-     txtTitle2: {
-         fontSize: 20,
-         marginBottom: 5,
-         color: 'white',
-         marginLeft:2,
-     },
-     imageMenuIcon:{
-        width: 25, height: 20, 
-      },
-      
-     viewRow: {
-         width: '100%',
-         height: 60,
-         alignItems: 'center',
-         flexDirection: 'row',
-         marginVertical: 10,
-         borderWidth: 1,
-         marginTop:10,
-         borderColor:'white',
-         backgroundColor:'white'
-     },
-     icon: {
-         marginLeft: 12
-     },
-     icon2: {
-         marginRight: 12
-     },
-     input: {
-         flex: 1,
-         height: 40,
-         marginLeft: 12,
-         padding: 10,
-     },
-     button: {
-         marginVertical: 20,
-         borderRadius: 10,
-         height: 60,
-         justifyContent: 'center',
-         alignItems: 'center',
-         backgroundColor: '#003d40',
-         marginTop:70,
-     },
-     viewCreatAcc: {
-         flexDirection: 'row',
-         justifyContent: 'center',
-     },
-     textButton: {
-         color: '#91bfb5',
-         fontSize: 20,
-         fontWeight: 'bold',
- 
-     },
-     textButton2: {
-        color: 'white',
-        fontSize: 20,
-        textAlign: 'center',
+   textButton: {
+    color: '#91bfb5',
+    fontSize: 20,
+    fontWeight: 'bold',
 
-    },
-     txtCreate: {
-         color: 'blue'
-     }
+},
+   txtTitle: {
+    fontSize: 22,
+    marginBottom: 10,
+    color: 'white',
+    textAlign: 'center',
+    alignItems: 'center',
+    letterSpacing:5
+
+},
+txtTitle2: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: 'white',
+    textAlign: 'center',
+    alignItems: 'center',
+    letterSpacing:2,
+    fontWeight: 'bold',
+
+},
+txtTitle3: {
+    fontSize: 17,
+    marginBottom: 20,
+    color: 'black',
+    textAlign: 'center',
+    alignItems: 'center',
+    letterSpacing:1
+
+},
+button: {
+    marginVertical: 20,
+    borderRadius: 10,
+    height: 60,
+width: '50%',
+bottom:10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#003d40',
+},
  });
- 
  

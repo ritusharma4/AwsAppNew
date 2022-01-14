@@ -36,6 +36,10 @@ export function LoginScreen({ navigation }) {
     const onPressBack = (event) => {
         navigation.navigate('FeedbackScreen');
     }
+    const onPressOutofHour = (event) => {
+        navigation.navigate('OutofHourScreen');
+    }
+
 
     const onPressLogin = () => {
         navigation.navigate('FeedbackScreen');
@@ -116,7 +120,10 @@ export function LoginScreen({ navigation }) {
                     <Text style={styles.textButton}>Login</Text>
                 </TouchableOpacity>
 
-              
+                <TouchableOpacity onPress={onPressOutofHour} style={styles.button}>
+                    <Text style={styles.textButton}>Out Of Hours</Text>
+                </TouchableOpacity>
+
                 {/* <View style={styles.viewCreatAcc}>
                     <Text>Don't have a account?</Text>
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('Signup')}>
