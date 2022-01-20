@@ -33,14 +33,29 @@
  
  export function FeedbackScreen({ navigation }) {
      const [email, onChangeEmail] = React.useState('');
-     const [password, onChangePassword] = React.useState('');
+     const [isRadioUnLike, onRadioUnlike] = React.useState('');
+     const [isRadioLike, onRadioLike] = React.useState('');
+     
      const [isSecure, onSetSecureText] = React.useState(true);
     
      const onPressBack = (event) => {
         navigation.navigate('Login');
     }
+
+  
      const onPressFeedback = () => {
-        navigation.navigate('OutofHourScreen');
+         console.log('isRadioUnLike' ,isRadioUnLike)
+         if(isRadioUnLike === true || isRadioUnLike === false) {
+            navigation.navigate('OutofHourScreen');
+            
+         }
+         else
+         {
+            alert('Please select Feedback option')
+         }
+
+
+        
         //  if (email.trim().length === 0) {
         //      Alert.alert('', 'Please enter a email.');
         //  }
@@ -107,15 +122,17 @@
                    
                      <View style={{ width: '100%', flexDirection: 'row', marginTop: 50 }}>
                             <View style={{ width: '50%', alignItems: 'center', justifyContent: 'center' }}>
-                                <TouchableOpacity style={{ marginTop: 10 }}
-                                    //onPress={() => this.setState({ isRadioUnLike: false, isRadioLike: true })}
+                                {isRadioUnLike === false ?
+                                
+                                <TouchableOpacity style={{ marginTop: 10,backgroundColor: '#003d40', }}
+                                   onPress={() => onRadioUnlike(false)}
                                     >
-                                    <View style={{ width: '100%', height: 100, borderRadius: 10, justifyContent: 'center' }}>
+                                          <View style={{ width: '100%', height: 100, borderRadius: 10, justifyContent: 'center' }}>
                                         <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                                            {/*
-                                             <View style={{ width: '10%', justifyContent: 'center', alignItems: 'center' }}>
+                                            
+                                             {/* <View style={{ width: '10%', justifyContent: 'center', alignItems: 'center' }}>
                                                 <View style={{ width: 15, height: 15, borderWidth: 1, borderRadius: 15 / 2, alignItems: 'center', justifyContent: 'center' }}>
-                                                    {this.state.isRadioLike === true && (<View style={{ width: 16, height: 16, borderRadius: 16 / 2, backgroundColor: 'green' }} />)}
+                                                    {isRadioUnLike === false && (<View style={{ width: 16, height: 16, borderRadius: 16 / 2, backgroundColor: 'green' }} />)}
                                                 </View>
                                             </View> */}
                                             <View style={{ width: '80%', alignItems: 'center', justifyContent: 'center',marginLeft:10 }}>
@@ -125,33 +142,83 @@
                                         </View>
                                     </View>
                                 </TouchableOpacity>
+
+                                :
+                                <TouchableOpacity style={{ marginTop: 10 }}
+                                onPress={() => onRadioUnlike(false)}
+                                 >
+                                       <View style={{ width: '100%', height: 100, borderRadius: 10, justifyContent: 'center' }}>
+                                     <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                                         
+                                          {/* <View style={{ width: '10%', justifyContent: 'center', alignItems: 'center' }}>
+                                             <View style={{ width: 15, height: 15, borderWidth: 1, borderRadius: 15 / 2, alignItems: 'center', justifyContent: 'center' }}>
+                                                 {isRadioUnLike === false && (<View style={{ width: 16, height: 16, borderRadius: 16 / 2, backgroundColor: 'green' }} />)}
+                                             </View>
+                                         </View> */}
+                                         <View style={{ width: '80%', alignItems: 'center', justifyContent: 'center',marginLeft:10 }}>
+                                             <Image source={require("./assets/greenemoji.png")} style={{width:90,height:90}}
+                                             />
+                                         </View>
+                                     </View>
+                                 </View>
+                             </TouchableOpacity>
+                                }
+                                  
                             </View>
 
                             <View style={{ width: '50%', alignItems: 'center', justifyContent: 'center' }}>
-                                <TouchableOpacity style={{ marginTop: 10 }}
-                                   // onPress={() => this.setState({ isRadioLike: false, isRadioUnLike: true })}
-                                    >
-                                    <View style={{ width: '100%', height: 100, borderRadius: 10, justifyContent: 'center' }}>
-                                        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                                            {/* <View style={{ width: '10%', justifyContent: 'center', alignItems: 'center' }}>
-                                                <View style={{ width: 15, height: 15, borderWidth: 1, borderRadius: 15 / 2, alignItems: 'center', justifyContent: 'center' }}>
-                                                    {this.state.isRadioUnLike === true && (<View style={{ width: 16, height: 16, borderRadius: 16 / 2, backgroundColor: 'red' }} />)}
-                                                </View>
-                                            </View> */}
-                                            <View style={{ width: '80%', alignItems: 'center', justifyContent: 'center',marginLeft:10 }}>
-                                                <Image source={require("./assets/redemoji.png")} style={{width:90,height:90}}
-                                                />
-                                            </View>
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
+                                {isRadioUnLike == true ?
+                                    <TouchableOpacity style={{ marginTop: 10,backgroundColor: '#003d40',  }}
+                                    onPress={() => onRadioUnlike(true)}
+                                           >
+                                           <View style={{ width: '100%', height: 100, borderRadius: 10, justifyContent: 'center' }}>
+                                               <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                                                   {/* <View style={{ width: '10%', justifyContent: 'center', alignItems: 'center' }}>
+                                                       <View style={{ width: 15, height: 15, borderWidth: 1, borderRadius: 15 / 2, alignItems: 'center', justifyContent: 'center' }}>
+                                                           {isRadioUnLike === true && (<View style={{ width: 16, height: 16, borderRadius: 16 / 2, backgroundColor: 'red' }} />)}
+                                                       </View>
+                                                   </View> */}
+                                                   <View style={{ width: '80%', alignItems: 'center', justifyContent: 'center',marginLeft:10 }}>
+                                                       <Image source={require("./assets/redemoji.png")} style={{width:90,height:90}}
+                                                       />
+                                                   </View>
+                                               </View>
+                                           </View>
+                                       </TouchableOpacity>
+
+                                       :
+                                       <TouchableOpacity style={{ marginTop: 10 }}
+                                       onPress={() => onRadioUnlike(true)}
+                                              >
+                                              <View style={{ width: '100%', height: 100, borderRadius: 10, justifyContent: 'center' }}>
+                                                  <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                                                      {/* <View style={{ width: '10%', justifyContent: 'center', alignItems: 'center' }}>
+                                                          <View style={{ width: 15, height: 15, borderWidth: 1, borderRadius: 15 / 2, alignItems: 'center', justifyContent: 'center' }}>
+                                                              {isRadioUnLike === true && (<View style={{ width: 16, height: 16, borderRadius: 16 / 2, backgroundColor: 'red' }} />)}
+                                                          </View>
+                                                      </View> */}
+                                                      <View style={{ width: '80%', alignItems: 'center', justifyContent: 'center',marginLeft:10 }}>
+                                                          <Image source={require("./assets/redemoji.png")} style={{width:90,height:90}}
+                                                          />
+                                                      </View>
+                                                  </View>
+                                              </View>
+                                          </TouchableOpacity>
+                                }
+                            
                             </View>
 </View>
                  
                  </View>
-                 <TouchableOpacity onPress={onPressFeedback} style={styles.button}>
-                     <Text style={styles.textButton}>Next</Text>
-                 </TouchableOpacity>
+                 {isRadioUnLike === true || isRadioUnLike === false  ?
+
+                   <TouchableOpacity onPress={onPressFeedback} style={styles.button}>
+                   <Text style={styles.textButton}>Next</Text>
+               </TouchableOpacity>
+               :
+               null
+                 }
+               
                  <Text style={styles.textButton2}>13th January 2022</Text>
 
                  {/* <View style={styles.viewCreatAcc}>

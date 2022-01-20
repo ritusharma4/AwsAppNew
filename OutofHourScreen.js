@@ -24,45 +24,57 @@
  } from 'react-native';
  import firestore from '@react-native-firebase/firestore';
  const { width, height } = Dimensions.get("window");
- const Item = ({ title, subtitle }) => (
+ const Item = ({ title, subtitle,telephone }) => (
      <View style={styles.item}>
          {/* <Text style={styles.title}>{`Name: ${title}`}</Text> */}
-         <Text style={styles.title}>Glasgow SE Foodbank</Text>
+         <Text style={styles.title}>{title}</Text>
 
          <View style={{flexDirection:'row',marginTop:10,alignItems: 'center'}}>
              <Image style={{width:25, height:25}}
              source={require("./assets/phone.png")} 
              ></Image>
-             <Text style={{marginLeft:10,    fontSize: 16,}}>01 41 423 2418</Text>
+             <Text style={{marginLeft:10,    fontSize: 16,}}>{telephone}</Text>
          </View>
-         <Text style={styles.subtitle}>42 Infield St Glasgow G42 TAT</Text>
+         <Text style={styles.subtitle}>{subtitle}</Text>
      </View>
  );
  
  export function OutofHourScreen({ navigation }) {
      const [users, setUsers] = React.useState([]);
-     const itemListing = [
-        {id: '1', name: 'Item!'},
-        {id: '2', name: 'Item@'},
-        {id: '3', name: 'Item#'},
-        {id: '4', name: 'Item$'},
-        {id: '5', name: 'Item%'},
-        {id: '6', name: 'Item^'},
-        {id: '7', name: 'Item&'},
-        {id: '8', name: 'Item*'},
-        {id: '9', name: 'Item('},
-        {id: '10', name: 'Item)'},
-        {id: '11', name: 'Item!!'},
-        {id: '12', name: 'Item@@'},
-        {id: '13', name: 'Item##'},
-        {id: '14', name: 'Item$$'},
-        {id: '15', name: 'Item%%'},
-        {id: '16', name: 'Item^^'},
-        {id: '17', name: 'Item&&'},
-        {id: '18', name: 'Item**'},
-        {id: '19', name: 'Item(('},
-        {id: '20', name: 'Item))'},
-      ];
+     const itemListing = 
+     [
+               {
+       
+                   "Name": "Glasgow SE Foodbank",
+       
+                   "AddressInfo": "42 Inglefield St, Glasgow G42 7AT",
+       
+                   "Telephone": "01414 232 418"},
+              
+               {
+   
+               "Name": "Glasgow NE Foodbank",
+   
+               "AddressInfo": "142 Helenvale St, Glasgow G31 4NA",
+   
+               "Telephone": "07745 242 738"},
+               {     
+   
+               "Name": "Glasgow NW Foodbank - Trussel Trust",
+   
+               "AddressInfo": "Millbrix Ave, Glasgow G14 0EP",
+   
+               "Telephone": "07787 334 012"},
+               {     
+   
+               "Name": "The Trussel Trust Food Bank",
+   
+               "AddressInfo": "2 Kirkwood St, Rutherglen, Glasgow G73 2SL",
+   
+               "Telephone": "07393 737 030"
+               }
+           ];
+    
       const onPressBack = (event) => {
         navigation.navigate('Login');
     }
@@ -87,7 +99,7 @@
  
      const renderItem = ({ item }) => (
          <Item 
-         title={item.name} subtitle={item.name} />
+         title={item.Name} subtitle={item.AddressInfo} telephone={item.Telephone} />
      );
  
      const isDarkMode = useColorScheme() === 'dark';
@@ -123,7 +135,7 @@
                  <FlatList
                  style={{width:width,backgroundColor:'#ebfdff'}}
                      data={itemListing}
-                     keyExtractor={item => `${item.name}`}
+                     keyExtractor={item => `${item.Name}`}
                      renderItem={renderItem}
                      keyExtractor={item => item.id}
                      renderS
